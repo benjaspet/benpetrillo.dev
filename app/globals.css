@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --accent: #0b6db8;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-geom);
+}
+
+:root {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+}
+
+html,
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geom), Arial, Helvetica, sans-serif;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: -150% 0;
+  }
+  to {
+    background-position: 150% 0;
+  }
+}
+
+.shimmer {
+  background-image: linear-gradient(
+    100deg,
+    rgba(255, 255, 255, 0.04) 40%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.04) 60%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+
+@keyframes text-shimmer {
+  from {
+    background-position: -150% 0;
+  }
+  to {
+    background-position: 150% 0;
+  }
+}
+
+.text-shimmer {
+  background-image: linear-gradient(
+    100deg,
+    #71717a 20%,
+    var(--accent) 45%,
+    #6bb6f0 50%,
+    var(--accent) 55%,
+    #71717a 80%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: text-shimmer 4s linear infinite;
+}
+
+.project-hero-blur-mask {
+  -webkit-mask-image: linear-gradient(to top, black 0%, black 18%, transparent 40%);
+  mask-image: linear-gradient(to top, black 0%, black 18%, transparent 40%);
+}
+
+.project-hero-gradient {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.92) 0%,
+    rgba(0, 0, 0, 0.65) 20%,
+    transparent 45%
+  );
+}
+
+@media (min-width: 640px) {
+  .project-hero-blur-mask {
+    -webkit-mask-image: radial-gradient(
+      ellipse 60% 50% at 0% 100%,
+      black 0%,
+      black 40%,
+      transparent 70%
+    );
+    mask-image: radial-gradient(ellipse 60% 50% at 0% 100%, black 0%, black 40%, transparent 70%);
+  }
+
+  .project-hero-gradient {
+    background: radial-gradient(
+      ellipse 70% 60% at 0% 100%,
+      rgba(0, 0, 0, 0.92) 0%,
+      rgba(0, 0, 0, 0.7) 45%,
+      transparent 85%
+    );
+  }
+}
