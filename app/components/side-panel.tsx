@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Accordion from "./accordion";
+import FavoriteEats from "./favorite-eats";
 import { projects } from "../data";
 
 const languages = ["Java", "Go", "TypeScript", "Python", "Groovy", "HTML/CSS", "Lisp"];
@@ -26,7 +27,11 @@ const technologies = [
   "Git",
 ];
 
-export default function SidePanel() {
+type SidePanelProps = {
+  onOpenPhotography: () => void;
+};
+
+export default function SidePanel({ onOpenPhotography }: SidePanelProps) {
   return (
     <div className="flex w-full flex-col gap-3">
       <Accordion title="Languages" defaultOpen>
@@ -49,9 +54,28 @@ export default function SidePanel() {
         </div>
       </Accordion>
 
-      <Accordion title="Favorite Eats">
-        <p className="text-zinc-500">Coming soon.</p>
-      </Accordion>
+      <FavoriteEats />
+
+      <button
+        type="button"
+        onClick={onOpenPhotography}
+        className="group hover:text-accent flex w-full items-center gap-2 rounded-xl bg-white/[0.04] px-4 py-3 text-left text-sm font-medium transition-colors hover:bg-white/[0.07]"
+      >
+        <span className="flex-1">Photography</span>
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="shrink-0 text-zinc-600 group-hover:text-accent"
+        >
+          <path d="M9 6l6 6-6 6" />
+        </svg>
+      </button>
 
       <div className="flex w-full flex-col gap-2">
         <p className="px-4 py-2 text-sm font-medium">Projects</p>

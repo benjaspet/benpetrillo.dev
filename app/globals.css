@@ -41,12 +41,14 @@ body::-webkit-scrollbar {
   display: none;
 }
 
+/* Travels exactly one gradient tile so the loop is seamless — see the note on
+   text-shimmer below for why 200% is the magic number. */
 @keyframes shimmer {
   from {
-    background-position: -150% 0;
+    background-position: 0% 0;
   }
   to {
-    background-position: 150% 0;
+    background-position: 200% 0;
   }
 }
 
@@ -58,32 +60,44 @@ body::-webkit-scrollbar {
     rgba(255, 255, 255, 0.04) 60%
   );
   background-size: 200% 100%;
-  animation: shimmer 1.6s ease-in-out infinite;
+  background-repeat: repeat;
+  animation: shimmer 1.5s linear infinite;
 }
 
+/*
+ * background-position is resolved against (image width - element width), which
+ * for a 200% background-size equals one element width. So 0% -> 200% translates
+ * the gradient by exactly one full tile and the last frame is pixel-identical to
+ * the first; any other distance lands mid-tile and visibly jumps on repeat.
+ * The flat #71717a runs at both ends also let adjacent tiles butt together
+ * without a seam showing through the angled gradient.
+ */
 @keyframes text-shimmer {
   from {
-    background-position: -150% 0;
+    background-position: 0% 0;
   }
   to {
-    background-position: 150% 0;
+    background-position: 200% 0;
   }
 }
 
 .text-shimmer {
   background-image: linear-gradient(
     100deg,
-    #71717a 20%,
-    var(--accent) 45%,
+    #71717a 0%,
+    #71717a 34%,
+    var(--accent) 44%,
     #6bb6f0 50%,
-    var(--accent) 55%,
-    #71717a 80%
+    var(--accent) 56%,
+    #71717a 66%,
+    #71717a 100%
   );
   background-size: 200% 100%;
+  background-repeat: repeat;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: text-shimmer 4s linear infinite;
+  animation: text-shimmer 6s linear infinite;
 }
 
 .project-hero-blur-mask {

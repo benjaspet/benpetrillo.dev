@@ -19,7 +19,10 @@ export default async function ProjectPage({
   if (!project) notFound();
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-black">
+    // min-h-dvh, not min-h-screen: 100vh resolves to the *large* viewport on
+    // mobile, i.e. the height with the browser chrome retracted, so the hero
+    // never matches what is actually on screen. dvh tracks the visible viewport.
+    <div className="relative min-h-dvh w-full overflow-hidden bg-black">
       <ProjectHeroImage src={project.cover} alt={project.name} />
 
       <div className="project-hero-blur-mask absolute inset-0">

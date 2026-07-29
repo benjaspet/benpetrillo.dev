@@ -13,7 +13,7 @@ export default function ProjectHeroImage({ src, alt }: { src: string; alt: strin
         src={src}
         alt={alt}
         fill
-        priority
+        preload
         sizes="100vw"
         quality={90}
         className={`object-cover transition-opacity duration-500 ${loaded ? "opacity-100" : "opacity-0"}`}
