@@ -55,15 +55,22 @@ const experience: Experience[] = [
     description: "",
   },
   {
+    org: "Generate Product Development",
+    icon: "/experience/generate-icon.png",
+    role: "Software Engineer",
+    dates: "Sep - Dec 2024",
+    description: "",
+  },
+  {
     org: "Code4Community",
     icon: "/experience/c4c-icon.png",
     role: "Software Developer",
-    dates: "May 2025 - Apr 2026",
-    description: "Free software development for Greater Boston non-profits.",
+    dates: "May - Aug 2025",
+    description: "",
   },
 ];
 
-const PAGE_SIZE = 4;
+const PAGE_SIZE = 5;
 const TRANSITION_MS = 500;
 
 function chunk<T>(arr: T[], size: number): T[][] {

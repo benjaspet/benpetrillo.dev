@@ -19,7 +19,7 @@ const links: SocialLink[] = [
   },
   {
     key: "github",
-    href: "https://github.com/benjaspet",
+    href: "https://github.com/bpetrillo-chwy",
     label: "GitHub",
     path: (
       <>
@@ -55,7 +55,7 @@ const links: SocialLink[] = [
 
 export default function SocialLinks() {
   return (
-    <div className="mt-auto flex items-center gap-3">
+    <div className="flex items-center gap-3">
       {links.map((link) => (
         <a
           key={link.key}
