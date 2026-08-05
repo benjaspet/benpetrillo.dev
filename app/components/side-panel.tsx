@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Accordion from "./accordion";
-import FavoriteEats from "./favorite-eats";
 import { projects } from "../data";
 
 const languages = ["Java", "Go", "TypeScript", "Python", "Groovy", "HTML/CSS", "Lisp"];
@@ -27,6 +26,24 @@ const technologies = [
   "Git",
 ];
 
+// --stagger-index is what spaces each pill's entrance apart; the animation
+// itself is keyed off the data-stagger-open the Accordion puts on its content.
+function TagList({ items }: { items: string[] }) {
+  return (
+    <div className="flex flex-wrap gap-1.5">
+      {items.map((item, i) => (
+        <span
+          key={item}
+          style={{ "--stagger-index": i } as React.CSSProperties}
+          className="stagger-pill rounded-md bg-white/5 px-2 py-0.5 text-xs text-zinc-300"
+        >
+          {item}
+        </span>
+      ))}
+    </div>
+  );
+}
+
 type SidePanelProps = {
   onOpenPhotography: () => void;
 };
@@ -35,26 +52,12 @@ export default function SidePanel({ onOpenPhotography }: SidePanelProps) {
   return (
     <div className="flex w-full flex-col gap-3">
       <Accordion title="Languages" defaultOpen>
-        <div className="flex flex-wrap gap-1.5">
-          {languages.map((lang) => (
-            <span key={lang} className="rounded-md bg-white/5 px-2 py-0.5 text-xs text-zinc-300">
-              {lang}
-            </span>
-          ))}
-        </div>
+        <TagList items={languages} />
       </Accordion>
 
       <Accordion title="Technologies">
-        <div className="flex flex-wrap gap-1.5">
-          {technologies.map((tech) => (
-            <span key={tech} className="rounded-md bg-white/5 px-2 py-0.5 text-xs text-zinc-300">
-              {tech}
-            </span>
-          ))}
-        </div>
+        <TagList items={technologies} />
       </Accordion>
-
-      <FavoriteEats />
 
       <button
         type="button"

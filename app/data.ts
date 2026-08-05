@@ -81,6 +81,40 @@ const OCEAN_CAY: [string, number, number][] = [
   ["IMG_0894.JPG", 2622, 1748],
 ];
 
+/** Same shape as OCEAN_CAY above; order follows EXIF DateTimeOriginal. */
+const TURKS_AND_CAICOS: [string, number, number][] = [
+  ["IMG_0953.JPG", 6000, 4000],
+  ["IMG_0983.JPG", 6000, 4000],
+  ["IMG_1002.JPG", 5644, 3762],
+  ["IMG_1017.JPG", 5692, 3794],
+  ["IMG_1058.JPG", 6000, 4000],
+  ["IMG_1067.JPG", 5666, 3777],
+  ["IMG_1085.JPG", 6000, 4000],
+  ["IMG_1109.JPG", 6000, 4000],
+  ["IMG_1150.JPG", 5951, 3967],
+  ["IMG_1153.JPG", 6000, 4000],
+  ["IMG_1162.JPG", 6000, 4000],
+  ["IMG_1168.JPG", 6000, 4000],
+  ["IMG_1176.JPG", 6000, 4000],
+  ["IMG_1177.JPG", 6000, 4000],
+  ["IMG_1178.JPG", 6000, 4000],
+  ["IMG_1208.JPG", 5706, 3804],
+  ["IMG_1218.JPG", 6000, 4000],
+  ["IMG_1220.JPG", 5961, 3974],
+  ["IMG_1273-EDIT.jpg", 4192, 2795],
+  ["IMG_1297-EDIT.jpg", 4014, 2676],
+  ["IMG_1299.JPG", 6000, 4000],
+  ["IMG_1303.JPG", 6000, 4000],
+  ["IMG_1308.JPG", 5816, 3877],
+  ["IMG_1309.JPG", 6000, 4000],
+  ["IMG_1313.JPG", 6000, 4000],
+  ["IMG_1315.JPG", 6000, 4000],
+  ["IMG_1397.JPG", 6000, 4000],
+  ["IMG_1439.JPG", 6000, 4000],
+  ["IMG_1442.JPG", 6000, 4000],
+  ["IMG_1451.JPG", 6000, 4000],
+];
+
 /**
  * Trips render most recent first, so the order here does not matter.
  */
@@ -96,54 +130,17 @@ export const trips: Trip[] = [
       height,
     })),
   },
-];
-
-export type Restaurant = {
-  name: string;
-  neighborhood: string;
-  cuisine: string;
-  /** My own rating, 0–5 in half-star steps. */
-  rating: number;
-  /** My own note on the place. Omit or leave empty to hide the line. */
-  comment?: string;
-};
-
-/** Google Maps deep link for a restaurant's listing. */
-export const mapsUrl = ({ name, neighborhood }: Restaurant) =>
-  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-    `${name}, ${neighborhood}, MA`,
-  )}`;
-
-// The `rating` and `comment` values below are PLACEHOLDERS — they are presented as
-// your opinions, so set them to your real ones.
-export const restaurants: Restaurant[] = [
   {
-    name: "Giacomo's",
-    neighborhood: "North End",
-    cuisine: "Italian",
-    rating: 4.5,
-    comment: "Add your notes here.",
-  },
-  {
-    name: "Maggiano's Little Italy",
-    neighborhood: "Back Bay",
-    cuisine: "Italian",
-    rating: 4,
-    comment: "Add your notes here.",
-  },
-  {
-    name: "Holy Cow Ice Cream Cafe",
-    neighborhood: "Dennis Port",
-    cuisine: "Ice cream",
-    rating: 4.5,
-    comment: "Add your notes here.",
-  },
-  {
-    name: "The Seafood Shanty",
-    neighborhood: "Bourne",
-    cuisine: "Seafood",
-    rating: 4,
-    comment: "Add your notes here.",
+    slug: "turks-and-caicos",
+    name: "Freedom of the Seas",
+    location: "Turks and Caicos",
+    // First capture in the set; the shoot runs 21–23 May.
+    date: "2026-05-21",
+    photos: TURKS_AND_CAICOS.map(([file, width, height]) => ({
+      src: `/photography/turks-and-caicos/${file}`,
+      width,
+      height,
+    })),
   },
 ];
 

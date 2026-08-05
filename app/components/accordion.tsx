@@ -40,7 +40,11 @@ export default function Accordion({ title, defaultOpen = false, children }: Acco
         style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
       >
         <div className="overflow-hidden">
-          <div className="px-4 pb-3 text-sm text-zinc-400">{children}</div>
+          {/* data-stagger-open lets content style itself off the open state
+              without the accordion having to know what it's wrapping. */}
+          <div data-stagger-open={open} className="px-4 pb-3 text-sm text-zinc-400">
+            {children}
+          </div>
         </div>
       </div>
     </div>

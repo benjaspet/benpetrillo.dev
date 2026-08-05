@@ -97,7 +97,129 @@ body::-webkit-scrollbar {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: text-shimmer 6s linear infinite;
+  animation: text-shimmer 3s linear infinite;
+}
+
+/*
+ * A Dock-icon bounce: one full hop, one smaller rebound, then a beat of rest
+ * before the next burst. The per-keyframe easings are what sell it as gravity
+ * rather than a sine wave — the rise decelerates into the apex, the fall
+ * accelerates out of it.
+ */
+@keyframes dock-bounce {
+  0% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0.2, 0.7, 0.3, 1);
+  }
+  14% {
+    transform: translateY(-8px);
+    animation-timing-function: cubic-bezier(0.7, 0, 0.8, 0.3);
+  }
+  28% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0.2, 0.7, 0.3, 1);
+  }
+  38% {
+    transform: translateY(-3px);
+    animation-timing-function: cubic-bezier(0.7, 0, 0.8, 0.3);
+  }
+  48%,
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.dock-note-badge {
+  animation: dock-bounce 2.4s infinite;
+}
+
+/*
+ * Out of flow so the note's width is just the badge — otherwise the row it sits
+ * in would always reserve space for text nobody has asked to see yet. The Y
+ * half-translate is baked into every transform here so the slide-in can share
+ * the same property without fighting the vertical centering.
+ *
+ * Both halves are asymmetric on purpose. Appearing is instant and quick;
+ * leaving hangs around for 5s — so a cursor clipping the badge on its way
+ * elsewhere doesn't flash the text, and so you can drift off it and still
+ * finish reading — then fades out over a slow ease-in, which keeps the text
+ * legible for most of the fade and drops off only at the very end.
+ *
+ * The left margin matches the gap-3 between the social icons, so the badge
+ * keeps that rhythm going into the text.
+ */
+.dock-note-tip {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  margin-left: 0.75rem;
+  opacity: 0;
+  transform: translate(-4px, -50%);
+  transition:
+    opacity 900ms cubic-bezier(0.4, 0, 1, 1) 5s,
+    transform 900ms cubic-bezier(0.4, 0, 1, 1) 5s;
+  pointer-events: none;
+}
+
+/* Settle the badge while it's being read, so the text isn't chasing a moving
+   target. */
+.dock-note:hover .dock-note-badge,
+.dock-note:focus-within .dock-note-badge {
+  animation-play-state: paused;
+}
+
+/* Override the whole timing, not just the delay — the slow curve above is for
+   leaving; arriving should feel immediate. */
+.dock-note:hover .dock-note-tip,
+.dock-note:focus-within .dock-note-tip {
+  opacity: 1;
+  transform: translate(0, -50%);
+  transition:
+    opacity 200ms ease-out,
+    transform 200ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dock-note-badge {
+    animation: none;
+  }
+
+  .dock-note-tip {
+    transition: none;
+  }
+}
+
+/*
+ * Pills rippling in as an accordion opens. The animation only exists while the
+ * panel is open, which is what makes it replay on every re-open rather than
+ * firing once per mount.
+ *
+ * `both` fill is doing the real work: it holds the `from` state through the
+ * delay, so a pill waiting its turn is invisible instead of popping in at full
+ * opacity and then restarting. Deliberately no closed-state rule — on collapse
+ * the animation is simply dropped and the pills snap back to opaque, hidden
+ * behind the panel's own 300ms squeeze.
+ */
+@keyframes pill-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+[data-stagger-open="true"] .stagger-pill {
+  animation: pill-in 260ms cubic-bezier(0.2, 0.7, 0.3, 1) both;
+  animation-delay: calc(var(--stagger-index) * 25ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-stagger-open="true"] .stagger-pill {
+    animation: none;
+  }
 }
 
 .project-hero-blur-mask {
